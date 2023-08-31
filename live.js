@@ -234,14 +234,20 @@ function selectWinner(playerSign) {
             playBoard.classList.remove("show");
             resultBox.classList.add("show");
         }, 700)
-        wonText.innerHTML = `Player <b>${playerSign}</b> won the match`;
-        playBoard.style.pointerEvents = "none";
-        botStatus = false;
+        if (userChoise == playerSign) {
+            wonText.innerHTML = `<b>You</b> won the match`;
+            playBoard.style.pointerEvents = "none";
+            botStatus = false;
+        }else {
+            wonText.innerHTML = `<b>Bot</b> won the match`;
+            playBoard.style.pointerEvents = "none";
+            botStatus = false;
+        }
     } else {
         if (getId(1) != "" && getId(2) != "" && getId(3) != "" && getId(4) != "" && getId(5) != "" && getId(6) != "" && getId(7) != "" && getId(8) != "" && getId(9) != "") {
             wonText.innerHTML = `Match get draw`;
             setTimeout(function () {
-                playBoard.classList.remove("show");
+                playBoard.classList.remove("shsow");
                 resultBox.classList.add("show");
             }, 700)
             playBoard.style.pointerEvents = "none";
