@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #F9629F;
+    --primary-color: #62a8f9;
     --light-color: #ffffff;
     --dark-color: #000000;
     --dark-300-color: #0000006d;
@@ -170,6 +170,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.play-board section span.active {
+    background-color: rgb(245, 255, 141);
+    color: white;
 }
 
 .play-board section span i {
