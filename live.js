@@ -232,8 +232,6 @@ function checkThreeId(val1, val2, val3, sign) {
 }
 
 function selectWinner(playerSign) {
-    console.log(playerSign, "................player choise");
-    console.log(userChoise, "................user choise");
     if (checkThreeId(1, 2, 3, playerSign) || checkThreeId(4, 5, 6, playerSign) || checkThreeId(7, 8, 9, playerSign) || checkThreeId(1, 4, 7, playerSign) || checkThreeId(2, 5, 8, playerSign) || checkThreeId(3, 6, 9, playerSign) || checkThreeId(1, 5, 9, playerSign) || checkThreeId(3, 5, 7, playerSign)) {
         botStatus = false;
         bot(botStatus);
