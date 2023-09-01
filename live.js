@@ -198,6 +198,11 @@ function secondStepCondition() {
 
 function thirdStepCondition(filledBoxes) {
     let randomBox = Math.floor(Math.random() * 9) + 1; // getting random position for bot to play
+    connerCombo.forEach(i => {
+        if(allbox[i-1].childElementCount <= 0) {
+            randomBox = i;
+        }
+    })
     if (!checkplace(randomBox, filledBoxes)) return false;
     botput(playerSign, randomBox);
     return true;
