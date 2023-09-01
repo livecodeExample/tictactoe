@@ -58,6 +58,7 @@ function clickedBox(element) {
         if (checkplace(parseInt(element.getAttribute("data-box-num")), filledBoxes)) filledBoxes.push(parseInt(element.getAttribute("data-box-num")));
         element.style.pointerEvents = "none";
         selectWinner(playerSign);
+        selectWinner(userChoise);
     } else {
         element.innerHTML = `<i>X</i>`;
         players.classList.add("active");
@@ -66,6 +67,7 @@ function clickedBox(element) {
         if (checkplace(parseInt(element.getAttribute("data-box-num")), filledBoxes)) filledBoxes.push(parseInt(element.getAttribute("data-box-num")));
         element.style.pointerEvents = "none";
         selectWinner(playerSign);
+        selectWinner(userChoise);
     }
     playBoard.style.pointerEvents = "none";
     let randomDelayTime = ((Math.random() * 1000) + 200).toFixed();
@@ -186,7 +188,10 @@ function secondStepCondition() {
                     conditonStatus2 = true;
                 }
             })
-            if (conditonStatus2 == false) selectWinner();
+            if (conditonStatus2 == false) {
+                selectWinner(playerSign);
+                selectWinner(userChoise);
+            }
         }
     }
 }
@@ -217,6 +222,7 @@ function botput(playerSign, box) {
     playBoard.style.pointerEvents = "auto";
     botStatus = false;
     selectWinner(playerSign);
+    selectWinner(userChoise);
 }
 
 function checkThreeId(val1, val2, val3, sign) {
@@ -226,14 +232,22 @@ function checkThreeId(val1, val2, val3, sign) {
 }
 
 function selectWinner(playerSign) {
+    console.log(playerSign, "................player choise");
+    console.log(userChoise, "................user choise");
     if (checkThreeId(1, 2, 3, playerSign) || checkThreeId(4, 5, 6, playerSign) || checkThreeId(7, 8, 9, playerSign) || checkThreeId(1, 4, 7, playerSign) || checkThreeId(2, 5, 8, playerSign) || checkThreeId(3, 6, 9, playerSign) || checkThreeId(1, 5, 9, playerSign) || checkThreeId(3, 5, 7, playerSign)) {
         botStatus = false;
         bot(botStatus);
-
+        rowCombo.forEach(i => {
+            if(checkThreeId(i[0], i[1], i[2], playerSign)) {
+                allbox[i[0]-1].classList.add("active");
+                allbox[i[1]-1].classList.add("active");
+                allbox[i[2]-1].classList.add("active");
+            }
+        })
         setTimeout(function () {
             playBoard.classList.remove("show");
             resultBox.classList.add("show");
-        }, 700)
+        }, 1000)
         if (userChoise == playerSign) {
             wonText.innerHTML = `<b>You</b> won the match`;
             playBoard.style.pointerEvents = "none";
