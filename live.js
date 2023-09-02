@@ -56,7 +56,7 @@ window.addEventListener("load", () => {
 
 function clickedBox(element) {
     if (players.classList.contains("player")) {
-        element.innerHTML = `<i>O</i>`;
+        element.innerHTML = `<i class="${playerOIcon}"></i>`;
         players.classList.add("active");
         playerSign = "X";
         element.setAttribute("id", "O");
@@ -65,7 +65,7 @@ function clickedBox(element) {
         selectWinner(playerSign);
         selectWinner(userChoise);
     } else {
-        element.innerHTML = `<i>X</i>`;
+        element.innerHTML = `<i class="${playerXIcon}"></i>`;
         players.classList.add("active");
         playerSign = "O";
         element.setAttribute("id", "X");
@@ -268,14 +268,14 @@ function botput(playerSign, box) {
 
     if (playerSign == "X") {
         if (checkplace(box + 1, filledBoxes)) filledBoxes.push(box + 1);
-        allbox[box].innerHTML = `<i>X</i>`;
+        allbox[box].innerHTML = `<i class="${playerXIcon}"></i>`;
         players.classList.remove("active");
         allbox[box].setAttribute("id", "X");
         allbox[box].style.pointerEvents = "none";
     } else {
         if (checkplace(box + 1, filledBoxes)) filledBoxes.push(box + 1);
         // allbox[randomBox].innerHTML = `<i class="${playerOIcon}"></i>`;
-        allbox[box].innerHTML = `<i>O</i>`;
+        allbox[box].innerHTML = `<i class="${playerOIcon}"></i>`;
         players.classList.remove("active");
         allbox[box].setAttribute("id", "O");
         allbox[box].style.pointerEvents = "none";
