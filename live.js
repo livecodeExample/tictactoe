@@ -203,6 +203,35 @@ function secondStepCondition() {
 function thirdStepCondition(filledBoxes) {
     let conditonStatus;
     conditonStatus = false;
+    if (allbox[0].id == userChoise && allbox[4].id == userChoise && conditonStatus == false) {
+        connerCombo.forEach(i => {
+            if (checkplace(i, filledBoxes) && conditonStatus == false) {
+                conditonStatus = true;
+                botput(playerSign, i);
+            }
+        })
+    } else if (allbox[2].id == userChoise && allbox[4].id == userChoise && conditonStatus == false) {
+        connerCombo.forEach(i => {
+            if (checkplace(i, filledBoxes) && conditonStatus == false) {
+                conditonStatus = true;
+                botput(playerSign, i);
+            }
+        })
+    } else if (allbox[6].id == userChoise && allbox[4].id == userChoise && conditonStatus == false) {
+        connerCombo.forEach(i => {
+            if (checkplace(i, filledBoxes) && conditonStatus == false) {
+                conditonStatus = true;
+                botput(playerSign, i);
+            }
+        })
+    } else if (allbox[8].id == userChoise && allbox[4].id == userChoise && conditonStatus == false) {
+        connerCombo.forEach(i => {
+            if (checkplace(i, filledBoxes) && conditonStatus == false) {
+                conditonStatus = true;
+                botput(playerSign, i);
+            }
+        })
+    } else {
     connerPair.forEach(i => {
         if (allbox[i[0] - 1].childElementCount > 0 && allbox[i[1] - 1].childElementCount > 0) {
             if (i[1] == 9) {
@@ -218,14 +247,15 @@ function thirdStepCondition(filledBoxes) {
         }
     })
     if (!conditonStatus) {
-        let randomBox = Math.floor(Math.random() * 9) + 1; // getting random position for bot to play
-        connerCombo.forEach(i => {
-            if (allbox[i - 1].childElementCount <= 0) {
-                randomBox = i;
-            }
-        })
-        if (!checkplace(randomBox, filledBoxes)) return false;
-        botput(playerSign, randomBox);
+            let randomBox = Math.floor(Math.random() * 9) + 1; // getting random position for bot to play
+            connerCombo.forEach(i => {
+                if (allbox[i - 1].childElementCount <= 0) {
+                    randomBox = i;
+                }
+            })
+            if (!checkplace(randomBox, filledBoxes)) return false;
+            botput(playerSign, randomBox);
+        }
     }
     return true;
 }
