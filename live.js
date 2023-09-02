@@ -29,7 +29,12 @@ let rowCombo = [
     [3, 5, 7]
 ]
 
-let connerCombo = [1,3,7,9];
+let connerCombo = [1, 3, 7, 9];
+
+let connerPair = [
+    [1, 9],
+    [3, 7]
+]
 
 window.addEventListener("load", () => {
     for (let i = 0; i < allbox.length; i++) {
@@ -114,10 +119,10 @@ function firstStepConditon(filledBoxes) {
             botput(playerSign, 5);
         } else {
             let conditonStatus3 = false;
-            let randomBox = Math.floor(Math.random() * 4) + 1; 
-            if (checkplace(connerCombo[randomBox-1], filledBoxes)) {
+            let randomBox = Math.floor(Math.random() * 4) + 1;
+            if (checkplace(connerCombo[randomBox - 1], filledBoxes)) {
                 conditonStatus3 = true;
-                botput(playerSign, connerCombo[randomBox-1]);
+                botput(playerSign, connerCombo[randomBox - 1]);
             }
             if (!conditonStatus3) thirdStepCondition();
         }
@@ -157,15 +162,15 @@ function secondStepCondition() {
     filledBoxes = arrayValue();
     let conditonStatus = false;
     rowCombo.forEach(i => {
-        if (getId(i[0]) ==userChoise && getId(i[1]) ==userChoise && checkplace(i[2], filledBoxes) && conditonStatus == false) {
+        if (getId(i[0]) == userChoise && getId(i[1]) == userChoise && checkplace(i[2], filledBoxes) && conditonStatus == false) {
             conditonStatus = true
             botput(playerSign, i[2])
         }
-        if (getId(i[1]) ==userChoise && getId(i[2]) ==userChoise && checkplace(i[0], filledBoxes) && conditonStatus == false) {
+        if (getId(i[1]) == userChoise && getId(i[2]) == userChoise && checkplace(i[0], filledBoxes) && conditonStatus == false) {
             conditonStatus = true
             botput(playerSign, i[0])
         }
-        if (getId(i[0]) ==userChoise && getId(i[2]) ==userChoise && checkplace(i[1], filledBoxes) && conditonStatus == false) {
+        if (getId(i[0]) == userChoise && getId(i[2]) == userChoise && checkplace(i[1], filledBoxes) && conditonStatus == false) {
             conditonStatus = true
             botput(playerSign, i[1])
         }
@@ -195,21 +200,42 @@ function secondStepCondition() {
         }
     }
 }
-
 function thirdStepCondition(filledBoxes) {
-    let randomBox = Math.floor(Math.random() * 9) + 1; // getting random position for bot to play
-    connerCombo.forEach(i => {
-        if(allbox[i-1].childElementCount <= 0) {
-            randomBox = i;
+    let conditonStatus;
+    conditonStatus = false;
+    connerPair.forEach(i => {
+        if (allbox[i[0] - 1].childElementCount > 0 && allbox[i[1] - 1].childElementCount > 0) {
+            if (i[1] == 9) {
+                randomBox = 8;
+                if (!checkplace(randomBox - 1, filledBoxes)) return false;
+                botput(playerSign, randomBox);
+            } else {
+                randomBox = 8;
+                if (!checkplace(randomBox, filledBoxes)) return false;
+                botput(playerSign, randomBox);
+            }
+            conditonStatus = true;
         }
     })
-    if (!checkplace(randomBox, filledBoxes)) return false;
-    botput(playerSign, randomBox);
+    if (!conditonStatus) {
+        let randomBox = Math.floor(Math.random() * 9) + 1; // getting random position for bot to play
+        connerCombo.forEach(i => {
+            if (allbox[i - 1].childElementCount <= 0) {
+                randomBox = i;
+            }
+        })
+        if (!checkplace(randomBox, filledBoxes)) return false;
+        botput(playerSign, randomBox);
+    }
     return true;
 }
 
 function botput(playerSign, box) {
     box--;
+    if (playerSign != userChoise && players.classList.contains("player")) {
+        players.classList.add("active");
+    }
+
     if (playerSign == "X") {
         if (checkplace(box + 1, filledBoxes)) filledBoxes.push(box + 1);
         allbox[box].innerHTML = `<i>X</i>`;
@@ -241,10 +267,10 @@ function selectWinner(playerSign) {
         botStatus = false;
         bot(botStatus);
         rowCombo.forEach(i => {
-            if(checkThreeId(i[0], i[1], i[2], playerSign)) {
-                allbox[i[0]-1].classList.add("active");
-                allbox[i[1]-1].classList.add("active");
-                allbox[i[2]-1].classList.add("active");
+            if (checkThreeId(i[0], i[1], i[2], playerSign)) {
+                allbox[i[0] - 1].classList.add("active");
+                allbox[i[1] - 1].classList.add("active");
+                allbox[i[2] - 1].classList.add("active");
             }
         })
         setTimeout(function () {
@@ -255,7 +281,7 @@ function selectWinner(playerSign) {
             wonText.innerHTML = `<b>You</b> won the match`;
             playBoard.style.pointerEvents = "none";
             botStatus = false;
-        }else {
+        } else {
             wonText.innerHTML = `<b>Bot</b> won the match`;
             playBoard.style.pointerEvents = "none";
             botStatus = false;
